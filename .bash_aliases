@@ -1,0 +1,6 @@
+alias update="sudo apt update && sudo apt upgrade -y"
+alias i3conf="vim ~/.config/i3/config"
+alias ssp="sudo pm-suspend"
+alias inst="sudo apt install"
+alias sht="shutdown now"
+alias wall="wal -n -g -i"
