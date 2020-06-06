@@ -1,6 +1,5 @@
 "----------BASIC OPTIONS---------"
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible
 
 "----------VUNDLE---------"
 
@@ -21,6 +20,11 @@ Plugin 'tpope/vim-surround'
 " vim-commentary
 Plugin 'tpope/vim-commentary'
 
+Plugin 'tpope/vim-repeat'
+
+" Goyo
+Plugin 'junegunn/goyo.vim'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -35,38 +39,57 @@ filetype plugin indent on    " required
 
 "----------COOL SETTINGS---------"
 
-" syntax highlighting, possibly more color stuff
+" Syntax highlighting, possibly more color stuff
 syntax on
 
-" numbering
+" Numbering
 set number
 set relativenumber
+
+" Show the incomplete command in the bottom
+set showcmd
 
 " Mapping the leader to backslash
 let mapleader = "\\"
 
-" <++> as a guide
+" <++> as a guide (thanks, Luke)
 inoremap <leader><leader> <Esc>/<++><Enter>"_c4l
 vnoremap <leader><leader> <Esc>/<++><Enter>"_c4l
 map <leader><leader> <Esc>/<++><Enter>"_c4l
 
-" cool interactive menu
+" Cool interactive menu
 set wildmenu
+
+" Setting the path for :find
+set path+=~/Documents/markor_notes/**,~/Documents/vim_playground/**
 
 " Using the built-in dictionary (that exists?)
 set dictionary=/usr/share/dict/words
 
-"Setting tabs:
+" Setting tabs:
 set tabstop=4 
 set shiftwidth=4 
 set softtabstop=4 
 set expandtab 
 
+" Smart search case
+set ignorecase
+set infercase
 
-"----------FILE-SPECIFIC STUFF (MOVE INTO COOL SNIPPETS PLX)---------"
+" Disable modelines ( as cool as they are :'( )
+set nomodeline
+
+" Set folding method for syntax (smart)
+set foldmethod=syntax
+
+"----------COOL MAPPINGS---------"
+nnoremap <leader>ev :vsplit $MYVIMRC <CR>
+nnoremap <leader>sv :so $MYVIMRC <CR>
+
+"----------FILE-SPECIFIC STUFF (MOVE INTO AUGROUPS PLX)---------"
 
 " md stuff:
-autocmd Filetype markdown set tw=85 " Does not work for some reason.
+autocmd Filetype markdown set textwidth=85 " Does not work for some reason.
 autocmd Filetype markdown set spell
 autocmd Filetype markdown inoremap ;i ** <++> <C-O> F*
 autocmd Filetype markdown nnoremap ;ai Bi*<Esc>Ei*<Esc>
@@ -74,29 +97,31 @@ autocmd Filetype markdown inoremap ;b ****<Left>
 autocmd Filetype markdown nnoremap ;ab Bi**<Esc>Ei**<Esc>
 
 " tex stuff:
-autocmd FileType tex set tw=85
-" Colored column
-autocmd FileType tex set colorcolumn=85 
-autocmd FileType tex inoremap ;b \textbf{<++>}
-autocmd FileType tex inoremap ;e \emph{<++>}
-autocmd FileType tex inoremap ;i \textit{<++>}
-autocmd FileType tex inoremap ;pc \parencite{<++>}
-autocmd FileType tex inoremap ;tc \textcite{<++>}
+autocmd FileType tex set textwidth=85
+autocmd FileType tex set colorcolumn=85
+autocmd FileType tex inoreabbrev ;b \textbf{
+autocmd FileType tex inoreabbrev ;e \emph{
+autocmd FileType tex inoreabbrev ;i \textit{
+autocmd FileType tex inoreabbrev ;pc \parencite{
+autocmd FileType tex inoreabbrev ;tc \textcite{
 " autocmd FileType tex inoremap 
 " autocmd FileType tex inoremap 
 
-filetype plugin on
+" Java stuff:
 
-"Java stuff:
+autocmd FileType java inoreabbrev psvm public static void main (String[] args) {
+" main method
 
-autocmd FileType java inoremap ;psvm public<Space>static<Space>void<Space>main<Space>(String[]<Space>args)<Space>{<Space><Enter><++><Enter>}
-"main method
+autocmd Filetype java inoreabbrev sopl System.out.println(
+autocmd Filetype java inoreabbrev sop System.out.print(
+" autocmd FileType java nnoremap <leader>c :Java <CR>
+"autocmd FileType java nnoremap <leader>c :!javac % && java FILE_NAME <CR>
+" Requires Eclim
 
-autocmd Filetype java inoremap ;sopl System.out.println(<++>);
-autocmd Filetype java inoremap ;sop System.out.print(<++>);
-"print stuff
+" HTML stuff:
+autocmd Filetype html set tabstop=2 
+autocmd Filetype html set shiftwidth=2 
+autocmd Filetype html set softtabstop=2 
 
-"HTML stuff:
-
-"Python stuff:
-autocmd FileType python nnoremap <leader>c :!python3 % <Enter>
+" Python stuff:
+autocmd FileType python nnoremap <leader>c :!python3 % <CR>
