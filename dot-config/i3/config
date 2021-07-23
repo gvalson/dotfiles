@@ -11,7 +11,6 @@
 # M
 # N
 # O
-# S
 # X
 # Y
 # Z
@@ -40,7 +39,7 @@ bindsym $mod+q kill
 bindsym $mod+Shift+q exec xkill
 
 # start rofi
-bindsym $mod+d exec rofi -show run -terminal $terminal -theme coolyellow
+bindsym $mod+d exec rofi -show run -terminal $terminal
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -85,7 +84,6 @@ mode "$mode_gaps_outer" {
         bindsym Escape mode "default"
 }
 
-
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -125,7 +123,7 @@ bindsym $mod+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
-bindsym $mod+t layout toggle splith stacking tabbed
+bindsym $mod+t layout toggle splith tabbed stacking
 # binsym $mod+Shift+t layout tabbed
 
 # focus the parent container
@@ -223,7 +221,11 @@ exec --no-startup-id mate-power-manager
 #exec --no-startup-id blueman-applet
 
 # Start mpd (not yet)
-# exec mpd
+exec mpd
+exec beet mpdstats
+
+# Start pulseaudio (don't know why it's necessary)
+exec pulseaudio --start
 
 #Start compton
 exec_always --no-startup-id compton --config ~/.config/compton.conf
@@ -232,6 +234,12 @@ exec_always --no-startup-id compton --config ~/.config/compton.conf
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
 bindsym XF86AudioMute exec amixer -q set Master toggle
+
+# mpd controls
+bindsym XF86AudioPlay --release exec mpc toggle
+bindsym XF86AudioNext --release exec mpc next
+bindsym XF86AudioPrev --release exec mpc prev
+bindsym XF86AudioStop --release exec mpc stop
 
 #Executing programs
 exec redshift-gtk -t 6500:3500
@@ -247,11 +255,13 @@ bindsym $mod+Shift+e exec caja
 bindsym $mod+e exec $terminal ranger
 
 # Forcing programs on workspaces
-assign [class="keepassx"] $workspace8 # Doesn't work for some reason
+assign [class="keepassxc"] $workspace8 # Doesn't work for some reason
 assign [class="mpv"] $workspace10
 assign [class="rhythmbox"] $workspace10
+assign [class="cantata"] $workspace10
 
-# Start rhythmbox
+# Start music players
+bindsym $mod+m exec cantata
 bindsym $mod+Shift+m exec rhythmbox
 
 # Take a screenshot
@@ -263,11 +273,18 @@ bindsym $mod+b exec firefox
 # Launch chromium (for webdev)
 bindsym $mod+Shift+b exec chromium-browser
 
-# Launch keepass
-bindsym $mod+w exec keepassx
+# Launch keepassc
+bindsym $mod+w exec keepassxc
 
 # Launch arandr (display config stuff)
 bindsym $mod+p exec arandr
+
+# Launch mixers
+bindsym $mod+s exec $terminal -e alsamixer
+bindsym $mod+Shift+s exec pavucontrol
+
+# Launch htop
+bindsym $mod+x exec $terminal -e htop
 
 # !!!!!-------------------------------------------------------!!!!!
 # Experimental SHIT

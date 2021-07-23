@@ -1,0 +1,47 @@
+directory: ~/Music
+library: ~/Music_stuff/beets/bl.db
+plugins:
+    fetchart
+    lyrics
+    convert
+    smartplaylist
+    mpdupdate
+    mpdstats
+    duplicates
+    badfiles
+
+import:
+    copy: no
+
+convert:
+    dest: ~/Music_stuff/beets/conv_songs
+    never_convert_lossy_files: yes
+    copy_album_art: yes
+    format: opus128k
+    formats:
+        opus128k:
+            command: ffmpeg -i $source -y -vn -acodec libopus -ab 128k $dest
+            extension: opus
+
+paths:
+    album:monstercat: Monstercat Compilations/$album%aunique{}/$track $artist - $title
+    # artist::afx(?i) 
+    Format:ogg: RDJ Soundcloud Dump/$track $title
+    singleton: Singles/$artist/$title
+    comp: $album%aunique{}/$track $artist - $title
+    # default: $albumartist/$album%aunique{}/$track $title
+    default: $album%aunique{}/$track $title
+
+lyrics:
+    auto: yes
+    import.write: yes
+
+smartplaylist:
+    relative_to: ~/Music
+    playlist_dir: ~/Music/Playlists/smart/
+    playlists:
+        - name: test.m3u
+          query: 'monstercat year:..2015'
+
+mpd:
+    rating: yes

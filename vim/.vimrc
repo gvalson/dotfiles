@@ -20,10 +20,14 @@ Plugin 'tpope/vim-surround'
 " vim-commentary
 Plugin 'tpope/vim-commentary'
 
+" vim-repeat
 Plugin 'tpope/vim-repeat'
 
 " Goyo
 Plugin 'junegunn/goyo.vim'
+
+" wal theme
+Plugin 'dylanaraps/wal.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -61,10 +65,13 @@ map <leader><leader> <Esc>/<++><Enter>"_c4l
 set wildmenu
 
 " Setting the path for :find
-set path+=~/Documents/markor_notes/**,~/Documents/vim_playground/**
+set path=~/Documents/markor_notes/**,~/Documents/vim_playground/**,~/Documents/SDSU_stuff/class_material/**
 
 " Using the built-in dictionary (that exists?)
-set dictionary=/usr/share/dict/words
+set dictionary+=/usr/share/dict/words
+
+" use wal colors
+colorscheme wal
 
 " Setting tabs:
 set tabstop=4 
@@ -86,6 +93,14 @@ set foldmethod=syntax
 nnoremap <leader>ev :vsplit $MYVIMRC <CR>
 nnoremap <leader>sv :so $MYVIMRC <CR>
 
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
+
+" Pre-goyo mode thing
+nnoremap <leader>gg :setlocal textwidth=0 <CR> 
+
 "----------FILE-SPECIFIC STUFF (MOVE INTO AUGROUPS PLX)---------"
 
 " md stuff:
@@ -99,11 +114,11 @@ autocmd Filetype markdown nnoremap ;ab Bi**<Esc>Ei**<Esc>
 " tex stuff:
 autocmd FileType tex set textwidth=85
 autocmd FileType tex set colorcolumn=85
-autocmd FileType tex inoreabbrev ;b \textbf{
-autocmd FileType tex inoreabbrev ;e \emph{
-autocmd FileType tex inoreabbrev ;i \textit{
-autocmd FileType tex inoreabbrev ;pc \parencite{
-autocmd FileType tex inoreabbrev ;tc \textcite{
+autocmd FileType tex inoremap ;b \textbf{
+autocmd FileType tex inoremap ;e \emph{
+autocmd FileType tex inoremap ;i \textit{
+autocmd FileType tex inoremap ;pc \parencite{
+autocmd FileType tex inoremap ;tc \textcite{
 " autocmd FileType tex inoremap 
 " autocmd FileType tex inoremap 
 
